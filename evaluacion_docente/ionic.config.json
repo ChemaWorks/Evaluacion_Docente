@@ -1,0 +1,7 @@
+{
+  "name": "evaluacion_docente",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
