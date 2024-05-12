@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'materias',
+    loadChildren: () => import('./materias/materia.module').then(m => m.MateriaModule) // Asegúrate de que la ruta y el nombre del módulo son correctos
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'

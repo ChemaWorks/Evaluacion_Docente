@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Evaluación de Maestros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let maestro of maestros">
+    <ion-card-header>
+      <ion-card-title>{{ maestro.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>ID del Maestro: {{ maestro.matricula }}</p>
+      <ion-button expand="block" (click)="evaluar(maestro)">Evaluar</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

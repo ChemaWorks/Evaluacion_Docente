@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular'; // Importar NavController
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private navCtrl: NavController) {}  // Inyectar NavController
 
+  goToMaterias() {
+    this.navCtrl.navigateForward('/materias');
+  }
 }
