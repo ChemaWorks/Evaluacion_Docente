@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Inicio
+      Evaluación Docente
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,11 +14,31 @@
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-    <!-- Botón para navegar a Maestros -->
-    <!-- En home.page.html -->
-<ion-button (click)="goToMaterias()">Ver Materias</ion-button>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Iniciar Sesión</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-input id="usuarioInput" label="Nombre de Usuario" labelPlacement="floating" [counter]="true" maxlength="5"></ion-input>
+        <ion-input id="contrasenaInput" label="Contraseña" type="password" labelPlacement="floating" [counter]="true" maxlength="8"></ion-input>
+        <ion-button (click)="login()">Ingresar</ion-button>
+      </ion-card-content>
 
+      <ion-item-divider></ion-item-divider>
+
+      <ion-card-content>
+        <ion-card-header>
+          <ion-card-title>Soy Alumno</ion-card-title>
+        </ion-card-header>
+        <ion-button id="present-alert">Evaluar</ion-button>
+        <ion-alert
+          trigger="present-alert"
+          header="Ingresa tu matricula"
+          [buttons]="alertButtons"
+          [inputs]="alertInputs"
+        ></ion-alert>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
