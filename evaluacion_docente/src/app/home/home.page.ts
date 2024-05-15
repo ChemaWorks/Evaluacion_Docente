@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular'; // Importar NavController
+import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +7,9 @@ import { NavController, AlertController } from '@ionic/angular'; // Importar Nav
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  esAdmin: boolean = false; // Variable para controlar la visibilidad
 
-  constructor(private navCtrl: NavController, private alertController: AlertController) {}  // Inyectar NavController
+  constructor(private navCtrl: NavController, private alertController: AlertController) {}
 
   goToMaterias() {
     this.navCtrl.navigateForward('/materias');
@@ -22,10 +23,11 @@ export class HomePage {
     {
       text: 'Ver Materias',
       handler: () => {
-        this.goToMaterias(); 
+        this.goToMaterias();
       }
     }
-  ]
+  ];
+
   public alertInputs = [
     {
       placeholder: 'Matricula (max 5 caracteres)',
@@ -38,15 +40,16 @@ export class HomePage {
   login() {
     const usuarioInput = document.getElementById('usuarioInput') as HTMLIonInputElement;
     const contrasenaInput = document.getElementById('contrasenaInput') as HTMLIonInputElement;
-
     const nombreUsuario = usuarioInput.value;
     const contrasena = contrasenaInput.value;
 
-    if(nombreUsuario == "Admin" && contrasena == "admin123"){
+    if (nombreUsuario === "Admin" && contrasena === "admin123") {
+      this.esAdmin = true; // Activar la vista del administrador
       this.goToMaterias();
-    }else{
+      localStorage.setItem('isAdmin', 'true'); 
+    } else {
       this.mostrarAlertaError();
-    };
+    }
   }
 
   async mostrarAlertaError() {
@@ -55,7 +58,6 @@ export class HomePage {
       message: 'Usted no esta autorizado para entrar',
       buttons: ['OK']
     });
-
     await alert.present();
   }
 }

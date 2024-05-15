@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Materia } from './materia.model';
-import { MaestroService } from '../maestros/maestro.service';
+import { MaestroService } from '../services/maestros.service';
 import { Maestro } from '../maestros/maestro.model';
 
 @Injectable({
@@ -16,7 +16,9 @@ export class MateriaService {
   constructor(private maestroService: MaestroService) {}
 
   private assignMaestros(maestroIds: number[]): Maestro[] {
-    return maestroIds.map(id => this.maestroService.getMaestroById(id)).filter(maestro => maestro !== undefined) as Maestro[];
+    return maestroIds
+      .map((id) => this.maestroService.getMaestroById(id))
+      .filter((maestro) => maestro !== undefined) as Maestro[];
   }
 
   getMaterias(): Materia[] {

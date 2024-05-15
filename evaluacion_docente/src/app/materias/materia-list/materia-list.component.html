@@ -1,27 +1,47 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>LaSalleBajio</ion-title>
+    <ion-buttons slot="end" *ngIf="esAdmin">
+      <ion-button (click)="abrirModalAgregarMaestro()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+      <ion-button (click)="goToListaPreguntas()">
+        <ion-icon name="list"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- Utiliza ion-card para cada materia -->
-  <ion-card *ngFor="let materia of materias">
+  <ion-card *ngFor="let materia of materias; let i = index">
     <ion-card-header>
       <ion-card-title>{{ materia.nombre }}</ion-card-title>
       <ion-card-subtitle>Horario: {{ materia.horario }}</ion-card-subtitle>
     </ion-card-header>
-
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let maestro of materia.maestros">
+        <ion-item *ngFor="let maestro of materia.maestros; let j = index">
           <ion-avatar slot="start">
-            <img src="assets/icon/favicon.png"> <!-- Asume un placeholder para la imagen del maestro -->
+            <img src="assets/icon/favicon.png">
           </ion-avatar>
           <ion-label>
             {{ maestro?.nombre }}
           </ion-label>
           <ion-button fill="outline" slot="end" (click)="goToPreguntas()">Evaluar</ion-button>
+          <ion-buttons slot="end" *ngIf="esAdmin">
+            <ion-button *ngIf="esAdmin && maestro && maestro.id" (click)="abrirModalAgregarPregunta(maestro.id)">
+              <ion-icon name="add-circle"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="esAdmin && maestro && maestro.id"  (click)="abrirModalModificarMaestro(maestro, j)">
+              <ion-icon name="create"></ion-icon>
+            </ion-button>
+            <ion-button (click)="eliminarMaestro(j)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </ion-item>
       </ion-list>
     </ion-card-content>

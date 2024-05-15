@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/materias"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lista de Preguntas</ion-title>
+    <ion-buttons slot="end" *ngIf="esAdmin">
+      <ion-button (click)="abrirModalAgregarPregunta()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let pregunta of preguntas; let i = index">
+      <ion-label>{{ pregunta }}</ion-label>
+      <ion-buttons slot="end" *ngIf="esAdmin">
+        <ion-button (click)="abrirModalModificarPregunta(pregunta, i)">
+          <ion-icon name="create"></ion-icon>
+        </ion-button>
+        <ion-button (click)="eliminarPregunta(i)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>

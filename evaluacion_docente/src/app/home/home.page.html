@@ -12,22 +12,19 @@
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
   </ion-header>
-
   <div id="container">
     <ion-card>
       <ion-card-header>
         <ion-card-title>Iniciar Sesión</ion-card-title>
       </ion-card-header>
-    
+
       <ion-card-content>
         <ion-input id="usuarioInput" label="Nombre de Usuario" labelPlacement="floating" [counter]="true" maxlength="5"></ion-input>
         <ion-input id="contrasenaInput" label="Contraseña" type="password" labelPlacement="floating" [counter]="true" maxlength="8"></ion-input>
         <ion-button (click)="login()">Ingresar</ion-button>
       </ion-card-content>
-
       <ion-item-divider></ion-item-divider>
-
-      <ion-card-content>
+      <ion-card-content >
         <ion-card-header>
           <ion-card-title>Soy Alumno</ion-card-title>
         </ion-card-header>

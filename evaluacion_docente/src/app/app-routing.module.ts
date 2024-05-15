@@ -19,6 +19,26 @@ const routes: Routes = [
     path: 'preguntas',
     loadChildren: () => import('./preguntas/preguntas.module').then( m => m.PreguntasPageModule)
   },
+  {
+    path: 'agregar-maestro',
+    loadChildren: () => import('./agregar-maestro/agregar-maestro.module').then( m => m.AgregarMaestroPageModule)
+  },
+  {
+    path: 'modificar-maestro',
+    loadChildren: () => import('./modificar-maestro/modificar-maestro.module').then( m => m.ModificarMaestroPageModule)
+  },
+  {
+    path: 'agregar-pregunta',
+    loadChildren: () => import('./agregar-pregunta/agregar-pregunta.module').then( m => m.AgregarPreguntaPageModule)
+  },
+  {
+    path: 'modificar-pregunta',
+    loadChildren: () => import('./modificar-pregunta/modificar-pregunta.module').then( m => m.ModificarPreguntaPageModule)
+  },
+  {
+    path: 'lista-preguntas',
+    loadChildren: () => import('./lista-preguntas/lista-preguntas.module').then( m => m.ListaPreguntasPageModule)
+  },
 ];
 
 @NgModule({
