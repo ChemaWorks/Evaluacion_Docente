@@ -24,6 +24,7 @@ export class HomePage {
       text: 'Ver Materias',
       handler: () => {
         this.goToMaterias();
+        localStorage.setItem('isAdmin', 'false'); 
       }
     }
   ];
@@ -49,6 +50,7 @@ export class HomePage {
       localStorage.setItem('isAdmin', 'true'); 
     } else {
       this.mostrarAlertaError();
+      localStorage.setItem('isAdmin', 'false'); 
     }
   }
 
