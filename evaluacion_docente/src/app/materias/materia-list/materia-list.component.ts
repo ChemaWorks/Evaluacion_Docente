@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MateriaService } from '../../materias/materia.service';
 import { Materia } from '../../materias/materia.model';
-import { Maestro } from '../../maestros/maestro.model';  // Asegúrate de que la ruta es correcta
+import { Maestro } from '../../maestros/maestro.model';
+import { NavController, AlertController } from '@ionic/angular';  // Asegúrate de que la ruta es correcta
 
 @Component({
   selector: 'app-materia-list',
@@ -11,10 +12,13 @@ import { Maestro } from '../../maestros/maestro.model';  // Asegúrate de que la
 export class MateriaListComponent implements OnInit {
   materias: Materia[] = [];
 
-  constructor(private materiaService: MateriaService) { }
+  constructor(private materiaService: MateriaService,private navCtrl: NavController, private alertController: AlertController) { }
 
   ngOnInit() {
     this.materias = this.materiaService.getMaterias();
+  }
+  goToPreguntas() {
+    this.navCtrl.navigateForward('/preguntas');
   }
 
   evaluar(maestro: Maestro | undefined) {
