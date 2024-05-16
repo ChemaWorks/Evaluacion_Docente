@@ -14,6 +14,7 @@ export class ListaPreguntasComponent implements OnInit {
   preguntas: { texto: string, calificacion: number }[] = [];
   esAdmin: boolean = false; // Valor por defecto
   maestro: string = "";
+  promedio: number = 0; // Valor por defecto
 
   constructor(
     private preguntaService: PreguntaService,
@@ -25,13 +26,47 @@ export class ListaPreguntasComponent implements OnInit {
   ngOnInit() {
     this.router.params.subscribe(params => {
       this.maestro = params['maestro'];
+      this.cargarCalificaciones();
+      this.calcularPromedio();
     });
-    this.preguntas = this.preguntaService.preguntas;
+    this.preguntas = [
+      { texto: '¿El maestro se comunica claramente?', calificacion: 3 },
+      { texto: '¿El maestro es puntual?', calificacion: 3 },
+      { texto: '¿El maestro es accesible fuera del aula?', calificacion: 3 },
+      { texto: '¿El maestro utiliza ejemplos relevantes?', calificacion: 3 },
+      { texto: '¿El maestro es justo en la evaluación?', calificacion: 3 },
+      { texto: '¿El maestro fomenta la participación?', calificacion: 3 },
+      { texto: '¿El maestro es respetuoso?', calificacion: 3 },
+      { texto: '¿El maestro proporciona retroalimentación útil?', calificacion: 3 },
+      { texto: '¿El maestro está bien preparado?', calificacion: 3 },
+      { texto: '¿El maestro es entusiasta?', calificacion: 3 },
+      { texto: '¿El maestro maneja bien el tiempo de clase?', calificacion: 3 },
+      { texto: '¿El maestro fomenta el pensamiento crítico?', calificacion: 3 },
+      { texto: '¿El maestro usa tecnología de manera efectiva?', calificacion: 3 },
+      { texto: '¿El maestro se adapta a diferentes estilos de aprendizaje?', calificacion: 3 },
+      { texto: '¿El maestro muestra interés por el éxito de los estudiantes?', calificacion: 3 }
+    ];
     this.esAdmin = this.obtenerEstadoAdmin();
   }
 
   obtenerEstadoAdmin(): boolean {
     return localStorage.getItem('isAdmin') === 'true'; // Leer el estado de admin desde el almacenamiento local
+  }
+
+  cargarCalificaciones() {
+    const storedCalificaciones = localStorage.getItem(`calificaciones_${this.maestro}`);
+    if (storedCalificaciones) {
+      this.preguntas = JSON.parse(storedCalificaciones);
+    }
+  }
+
+  guardarCalificaciones() {
+    localStorage.setItem(`calificaciones_${this.maestro}`, JSON.stringify(this.preguntas));
+  }
+
+  calcularPromedio() {
+    const totalCalificaciones = this.preguntas.reduce((sum, pregunta) => sum + pregunta.calificacion, 0);
+    this.promedio = this.preguntas.length ? totalCalificaciones / this.preguntas.length : 0;
   }
 
   goToListaProfesores() {
@@ -63,11 +98,16 @@ export class ListaPreguntasComponent implements OnInit {
   eliminarPregunta(index: number) {
     if (this.esAdmin) {
       this.preguntaService.eliminarPregunta(index);
+      this.preguntas.splice(index, 1);
+      this.guardarCalificaciones();
+      this.calcularPromedio();
     }
   }
 
   actualizarCalificacion(index: number, event: any) {
     const calificacion = event.target.value;
-    this.preguntaService.modificarCalificacion(index, calificacion);
+    this.preguntas[index].calificacion = calificacion;
+    this.guardarCalificaciones();
+    this.calcularPromedio();
   }
 }

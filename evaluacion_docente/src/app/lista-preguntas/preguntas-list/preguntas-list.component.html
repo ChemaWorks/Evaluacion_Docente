@@ -37,6 +37,11 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <ion-item>
+        <ion-label *ngIf="esAdmin">
+          Promedio: {{ promedio | number: '1.1-1' }}
+        </ion-label>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 
