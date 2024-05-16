@@ -34,11 +34,8 @@
           <ion-label>
             {{ maestro?.nombre }}
           </ion-label>
-          <ion-button fill="outline" slot="end" (click)="goToListaPreguntas(maestro?.nombre ?? '')">Evaluar</ion-button>
+          <ion-button *ngIf="!esAdmin" fill="outline" slot="end" (click)="goToListaPreguntas(maestro?.nombre ?? '')">Evaluar</ion-button>
           <ion-buttons slot="end" *ngIf="esAdmin">
-            <ion-button *ngIf="esAdmin && maestro && maestro.id" (click)="abrirModalAgregarPregunta(maestro.id)">
-              <ion-icon name="add-circle"></ion-icon>
-            </ion-button>
             <ion-button (click)="eliminarMaestro(j, materia.id)">
               <ion-icon name="trash"></ion-icon>
             </ion-button>

@@ -78,16 +78,6 @@ export class MateriaListComponent implements OnInit {
     }
   }
 
-  async abrirModalAgregarPregunta(maestroId: number) {
-    const modal = await this.modalCtrl.create({
-      component: AgregarPreguntaPage,
-      componentProps: {
-        maestroId
-      }
-    });
-    await modal.present();
-  }
-
   cambiarProfesor(materia: Materia, profesorId: number) {
     materia.profesorSeleccionado = profesorId;
     this.materiaService.modificarMateria(materia.id - 1, materia);

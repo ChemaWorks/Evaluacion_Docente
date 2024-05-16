@@ -8,6 +8,7 @@ import { NavController, AlertController } from '@ionic/angular';
 })
 export class HomePage {
   esAdmin: boolean = false; // Variable para controlar la visibilidad
+  matriculas: string[] = [];
 
   constructor(private navCtrl: NavController, private alertController: AlertController) {}
 
@@ -21,13 +22,29 @@ export class HomePage {
 
   public alertButtons = [
     {
-      text: 'Ver Materias',
-      handler: () => {
-        this.goToMaterias();
-        localStorage.setItem('isAdmin', 'false'); 
-      }
+        text: 'Ver Materias',
+        handler: (value: any) => {
+            const matricula = value[0];
+            if (matricula == "") {
+                this.mostrarAlertaVacio();
+            } else {
+                let storedMatriculas = localStorage.getItem('matriculas');
+                let matriculasArray = storedMatriculas ? JSON.parse(storedMatriculas) : [];
+
+                if (matriculasArray.includes(matricula)) {
+                    this.mostrarAlertaAlumno();
+                } else {
+                    this.goToMaterias();
+                    localStorage.setItem('isAdmin', 'false');
+                    
+                    matriculasArray.push(matricula);
+                    
+                    localStorage.setItem('matriculas', JSON.stringify(matriculasArray));
+                }
+            }
+        }
     }
-  ];
+];
 
   public alertInputs = [
     {
@@ -63,5 +80,21 @@ export class HomePage {
     await alert.present();
   }
 
-  
+  async mostrarAlertaAlumno() {
+    const alert = await this.alertController.create({
+      header: 'Error Duplicado',
+      message: 'Usted ya realizo la evaluacion',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async mostrarAlertaVacio() {
+    const alert = await this.alertController.create({
+      header: 'Error Vacio',
+      message: 'Campo Vacio',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 }

@@ -74,15 +74,6 @@ export class ListaPreguntasComponent implements OnInit {
     this.navCtrl.navigateForward('/materias');
   }
 
-  async abrirModalAgregarPregunta() {
-    if (this.esAdmin) {
-      const modal = await this.modalCtrl.create({
-        component: AgregarPreguntaPage,
-      });
-      await modal.present();
-    }
-  }
-
   async abrirModalModificarPregunta(pregunta: string, index: number) {
     if (this.esAdmin) {
       const modal = await this.modalCtrl.create({
