@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Maestro } from '../../maestros/maestro.model';
-import { MaestroService } from '../../maestros/maestro.service';
+import { MaestroService } from '../../services/maestros.service';
 
 @Component({
   selector: 'app-maestro-evaluation',
