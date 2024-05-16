@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'lista-preguntas',
     loadChildren: () => import('./lista-preguntas/lista-preguntas.module').then( m => m.ListaPreguntasPageModule)
   },
+  {
+    path: 'agregar-materia',
+    loadChildren: () => import('./agregar-materia/agregar-materia.module').then( m => m.AgregarMateriaPageModule)
+  },
 ];
 
 @NgModule({

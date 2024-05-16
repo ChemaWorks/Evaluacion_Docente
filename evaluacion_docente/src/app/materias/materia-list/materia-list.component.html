@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>LaSalleBajio</ion-title>
     <ion-buttons slot="end" *ngIf="esAdmin">
-      <ion-button (click)="abrirModalAgregarMaestro()">
+      <ion-button (click)="abrirModalAgregarMateria()">
         <ion-icon name="add"></ion-icon>
       </ion-button>
       <ion-button (click)="goToListaPreguntas()">
@@ -22,6 +22,9 @@
       <ion-card-subtitle>Horario: {{ materia.horario }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Profesor</ion-label>
+      </ion-item>
       <ion-list>
         <ion-item *ngFor="let maestro of materia.maestros; let j = index">
           <ion-avatar slot="start">
@@ -35,15 +38,13 @@
             <ion-button *ngIf="esAdmin && maestro && maestro.id" (click)="abrirModalAgregarPregunta(maestro.id)">
               <ion-icon name="add-circle"></ion-icon>
             </ion-button>
-            <ion-button *ngIf="esAdmin && maestro && maestro.id"  (click)="abrirModalModificarMaestro(maestro, j)">
-              <ion-icon name="create"></ion-icon>
-            </ion-button>
-            <ion-button (click)="eliminarMaestro(j)">
+            <ion-button (click)="eliminarMaestro(j, materia.id)">
               <ion-icon name="trash"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-item>
       </ion-list>
+      <ion-button *ngIf="esAdmin" expand="block" (click)="abrirModalAgregarMaestro(materia.id)">Agregar Profesor</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

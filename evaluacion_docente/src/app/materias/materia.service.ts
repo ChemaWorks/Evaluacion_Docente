@@ -7,13 +7,12 @@ import { Maestro } from '../maestros/maestro.model';
   providedIn: 'root'
 })
 export class MateriaService {
-  private materias: Materia[] = [
-    { id: 1, nombre: 'Matemáticas', horario: '08:00 - 10:00', maestros: this.assignMaestros([1, 2]) }, // Asumiendo IDs de maestros
-    { id: 2, nombre: 'Literatura', horario: '10:00 - 12:00', maestros: this.assignMaestros([3]) },
-    { id: 3, nombre: 'Ciencias', horario: '12:00 - 14:00', maestros: this.assignMaestros([4]) }
-  ];
+  private materiasKey = 'materias'; // Clave para el almacenamiento local
+  private materias: Materia[] = [];
 
-  constructor(private maestroService: MaestroService) {}
+  constructor(private maestroService: MaestroService) {
+    this.cargarMateriasDelLocalStorage(); // Carga al iniciar el servicio
+  }
 
   private assignMaestros(maestroIds: number[]): Maestro[] {
     return maestroIds
@@ -24,5 +23,34 @@ export class MateriaService {
   getMaterias(): Materia[] {
     return this.materias;
   }
-}
 
+  getMateriaById(id: number): Materia | undefined {
+    return this.materias.find(materia => materia.id === id);
+  }
+
+  agregarMateria(materia: Materia) {
+    this.materias.push(materia);
+    this.guardarMateriasEnLocalStorage();
+  }
+
+  modificarMateria(index: number, materia: Materia) {
+    this.materias[index] = materia;
+    this.guardarMateriasEnLocalStorage();
+  }
+
+  eliminarMateria(index: number) {
+    this.materias.splice(index, 1);
+    this.guardarMateriasEnLocalStorage();
+  }
+
+  private cargarMateriasDelLocalStorage(): void {
+    const materiasString = localStorage.getItem(this.materiasKey);
+    if (materiasString) {
+      this.materias = JSON.parse(materiasString);
+    }
+  }
+
+  private guardarMateriasEnLocalStorage(): void {
+    localStorage.setItem(this.materiasKey, JSON.stringify(this.materias));
+  }
+}

@@ -3,25 +3,44 @@ import { Maestro } from '../maestros/maestro.model';
 
 @Injectable({ providedIn: 'root' })
 export class MaestroService {
-  maestro: Maestro[] = [
-    { id: 1, nombre: 'Juan Perez', materia: 'Matematicas', horario: '8:00 - 10:00', preguntas: [] },
-    { id: 2, nombre: 'Maria Rodriguez', materia: 'Español', horario: '10:00 - 12:00', preguntas: [] },
-    // ... más maestros
-  ];
+  maestrosKey = 'maestros'; // Clave para el almacenamiento local
+  maestro: Maestro[] = [];
+
+  constructor() {
+    this.cargarMaestrosDelLocalStorage(); // Carga al iniciar el servicio
+  }
 
   agregarMaestro(maestro: Maestro) {
     this.maestro.push(maestro);
+    this.guardarMaestrosEnLocalStorage();
   }
 
   modificarMaestro(index: number, maestro: Maestro) {
     this.maestro[index] = maestro;
+    this.guardarMaestrosEnLocalStorage();
   }
 
   eliminarMaestro(index: number) {
     this.maestro.splice(index, 1);
+    this.guardarMaestrosEnLocalStorage();
   }
 
   getMaestroById(id: number): Maestro | undefined {
     return this.maestro.find(maestro => maestro.id === id);
+  }
+
+  getMaestros() {
+    return this.maestro;
+  }
+
+  private cargarMaestrosDelLocalStorage(): void {
+    const maestrosString = localStorage.getItem(this.maestrosKey);
+    if (maestrosString) {
+      this.maestro = JSON.parse(maestrosString);
+    }
+  }
+
+  private guardarMaestrosEnLocalStorage(): void {
+    localStorage.setItem(this.maestrosKey, JSON.stringify(this.maestro));
   }
 }

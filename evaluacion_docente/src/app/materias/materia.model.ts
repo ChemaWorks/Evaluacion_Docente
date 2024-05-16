@@ -5,4 +5,5 @@ export interface Materia {
   nombre: string;
   horario: string;
   maestros: (Maestro | undefined)[];
+  profesorSeleccionado?: number; 
 }
