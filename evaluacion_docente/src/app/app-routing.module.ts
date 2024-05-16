@@ -48,6 +48,10 @@ const routes: Routes = [
     path: 'agregar-materia',
     loadChildren: () => import('./agregar-materia/agregar-materia.module').then( m => m.AgregarMateriaPageModule)
   },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
 ];
 
 @NgModule({

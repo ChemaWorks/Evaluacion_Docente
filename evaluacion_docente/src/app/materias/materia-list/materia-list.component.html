@@ -11,6 +11,7 @@
       <ion-button (click)="goToListaPreguntas('...')">
         <ion-icon name="list"></ion-icon>
       </ion-button>
+      <ion-button *ngIf="esAdmin" (click)="goToDashboard()">Ir al Dashboard</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

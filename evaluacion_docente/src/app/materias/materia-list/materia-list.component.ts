@@ -93,5 +93,9 @@ export class MateriaListComponent implements OnInit {
     this.materiaService.modificarMateria(materia.id - 1, materia);
   }
 
+  goToDashboard() {
+    this.navCtrl.navigateForward('/dashboard');
+  }
+
   
 }

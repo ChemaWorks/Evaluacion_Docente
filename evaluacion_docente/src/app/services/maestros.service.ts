@@ -43,4 +43,27 @@ export class MaestroService {
   private guardarMaestrosEnLocalStorage(): void {
     localStorage.setItem(this.maestrosKey, JSON.stringify(this.maestro));
   }
+
+
+
+  obtenerProfesoresConPromedios(): { maestro: string, promedio: number }[] {
+    return this.maestro.map(profesor => {
+      let calificacionesString = localStorage.getItem('calificaciones_' + profesor.nombre);
+      let calificaciones: { calificacion: number }[] = []; // Define calificaciones como un array
+      if (calificacionesString) {
+        try {
+          calificaciones = JSON.parse(calificacionesString); // Intenta convertir el string a un array
+        } catch (error) {
+          // Manejar el error si el valor no es un JSON válido
+          return { maestro: profesor.nombre, promedio: 0 };
+        }
+      }
+
+      let promedio = 0;
+      if (calificaciones.length > 0) { // Verifica si hay calificaciones
+        promedio = calificaciones.reduce((sum: number, pregunta) => sum + pregunta.calificacion, 0) / calificaciones.length;
+      }
+      return { maestro: profesor.nombre, promedio: promedio };
+    });
+  }
 }

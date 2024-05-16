@@ -66,7 +66,8 @@ export class ListaPreguntasComponent implements OnInit {
 
   calcularPromedio() {
     const totalCalificaciones = this.preguntas.reduce((sum, pregunta) => sum + pregunta.calificacion, 0);
-    this.promedio = this.preguntas.length ? totalCalificaciones / this.preguntas.length : 0;
+    this.promedio = this.preguntas.length ? ((totalCalificaciones / this.preguntas.length) * (100)) / 5 : 0;
+    console.log(`Promedio de ${this.maestro}: ${this.promedio}`);
   }
 
   goToListaProfesores() {
