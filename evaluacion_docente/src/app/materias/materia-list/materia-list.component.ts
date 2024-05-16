@@ -40,8 +40,8 @@ export class MateriaListComponent implements OnInit {
     this.navCtrl.navigateForward('/preguntas');
   }
 
-  goToListaPreguntas() {
-    this.navCtrl.navigateForward('/lista-preguntas');
+  goToListaPreguntas(maestro:string) {
+    this.navCtrl.navigateForward(['/lista-preguntas', maestro]);
   }
 
   async abrirModalAgregarMaestro(materiaId: number) {
